@@ -1,0 +1,11 @@
+This is the PyTorch implementation of decoupled training with DCI. We will public the implementations of baseline models later.
+
+Running examples
+Execute 
+python main-dci.py --dataset reddit --lr 0.01 --epochs 500 --num_clusters 9 to run the Reddit example.
+python main-dci.py --dataset wiki --lr 0.01 --epochs 500 --num_clusters 16 to run the Wiki example.
+python main-dci.py --dataset alpha --lr 0.01 --epochs 500 --num_clusters 45 to run the Alpha example.
+python main-dci.py --dataset amazon --lr 0.01 --epochs 500 --num_clusters 16 to run the Amazon example.
+
+Requirements:
+pytorch = 1.7.1
