@@ -153,8 +153,8 @@ def main():
         test_graph = (torch.tensor(edge_index), torch.FloatTensor(feats).to(device), train_idx, test_idx, label)
         tmp_auc, res = test(args, model, device, test_graph, criterion_tune, fold_idx, feats.shape[1], num_blocks, num_user, num_object)
         every_fold_auc.append(tmp_auc)
+        print('Results of '+str(fold_idx)+'/10 folds (Decoupled training):', every_fold_auc)
         fold_idx += 1
-        print('Results of 10 folds (Decoupled training):', every_fold_auc)
         
     print('Average AUC over 10 folds (Decoupled training): ', np.mean(every_fold_auc))
 
