@@ -17,7 +17,8 @@ class GraphCNN(nn.Module):
             final_dropout: dropout ratio on the final linear layer
             learn_eps: If True, learn epsilon to distinguish center nodes from neighboring nodes. If False, aggregate neighbors and center nodes altogether. 
             neighbor_pooling_type: how to aggregate neighbors (mean, average, or max)
-            graph_pooling_type: how to aggregate entire nodes in a graph (mean, average)
+            num_user: number of user nodes
+            num_object: number of object nodes
             device: which device to use
         '''
 

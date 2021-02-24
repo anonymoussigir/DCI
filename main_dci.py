@@ -13,9 +13,6 @@ from models.model_test import ModelTest
 from models.dci import DCI
 from models.mlp import MLP
 
-import warnings
-warnings.filterwarnings("ignore", message="Numerical issues were encountered ")
-
 sm = torch.nn.Softmax()
 sig = torch.nn.Sigmoid()
 
@@ -104,8 +101,6 @@ def main():
                         help='number of layers INCLUDING the input one (default: 5)')
     parser.add_argument('--num_mlp_layers', type=int, default=2,
                         help='number of layers for MLP EXCLUDING the input one (default: 2). 1 means linear model.')
-    parser.add_argument('--num_predictor_mlp_layers', type=int, default=1,
-                        help='number of layers for MLP for the predictor (default: 1). 1 means linear model.')
     parser.add_argument('--hidden_dim', type=int, default=128,
                         help='number of hidden units (default: 128)')
     parser.add_argument('--finetune_epochs', type=int, default=100,
@@ -138,12 +133,12 @@ def main():
     optimizer_train = optim.Adam(model.parameters(), lr=args.lr)
             
     train_graph = (torch.tensor(edge_index), torch.FloatTensor(feats).to(device), torch.FloatTensor(shuf_feats).to(device), loc)
-    ttttt = []
+    loss_store = []
     for epoch in range(1, args.epochs + 1):
         loss = trainFull(args, model, device, train_graph, criterion1, num_user+num_object)
         
-        ttttt.append(loss.detach().cpu().numpy().tolist())
-        if epoch >= 10 and np.std(ttttt[epoch-10: epoch])<1e-4:
+        loss_store.append(loss.detach().cpu().numpy().tolist())
+        if epoch >= 10 and np.std(loss_store[epoch-10: epoch])<1e-4:
             break
 
         if optimizer_train is not None:
@@ -159,9 +154,9 @@ def main():
         tmp_auc, res = test(args, model, device, test_graph, criterion_tune, fold_idx, feats.shape[1], num_blocks, num_user, num_object)
         every_fold_auc.append(tmp_auc)
         fold_idx += 1
-        print('Results of 10 folds: ', every_fold_auc)
+        print('Results of 10 folds (Decoupled training):', every_fold_auc)
         
-    print('Average AUC over 10 folds: ', np.mean(every_fold_auc))
+    print('Average AUC over 10 folds (Decoupled training): ', np.mean(every_fold_auc))
 
 if __name__ == '__main__':
     main()
