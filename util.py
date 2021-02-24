@@ -4,7 +4,6 @@ import torch
 from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
-from collections import Counter
 
 random.seed(0)
 np.random.seed(0)
