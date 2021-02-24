@@ -2,27 +2,12 @@ import numpy as np
 import random
 import torch
 from sklearn.model_selection import StratifiedKFold
-import json
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
-from pymetis import part_graph
 from collections import Counter
 
 random.seed(0)
 np.random.seed(0)
-
-def partition(adj_raw, n):
-    node_num = len(set(adj_raw[0])) + len(set(adj_raw[1]))
-    adj_list = [[] for _ in range(node_num)]
-    for i, j in zip(adj_raw[0], adj_raw[1]):
-        if i == j:
-            continue
-        adj_list[i].append(j)
-        adj_list[j].append(i)
-
-    _, ss_labels = part_graph(nparts=n, adjacency=adj_list)
-
-    return ss_labels
 
 def load_data_block(datasets, cluster_num):
     adj = np.loadtxt('./data/'+datasets+'.txt')

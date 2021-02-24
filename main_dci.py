@@ -13,7 +13,6 @@ from models.model_test import ModelTest
 from models.dci import DCI
 from models.mlp import MLP
 
-sm = torch.nn.Softmax()
 sig = torch.nn.Sigmoid()
 
 def setup_seed(seed):
