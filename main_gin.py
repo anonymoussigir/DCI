@@ -129,22 +129,22 @@ def main():
     model = DCI(args.num_layers, args.num_mlp_layers, feats.shape[1], args.hidden_dim, num_blocks, args.final_dropout, args.learn_eps, args.neighbor_pooling_type, num_user, num_object, device).to(device)
     
     # For the joint training, i.e., end-to-end GIN, we omit the process of DGI pretraining
-    '''
-    optimizer_train = optim.Adam(model.parameters(), lr=args.lr)
-    train_graph = (torch.tensor(edge_index), torch.FloatTensor(feats).to(device), torch.FloatTensor(shuf_feats).to(device), loc)
-    loss_store = []
-    for epoch in range(1, args.epochs + 1):
-        loss = trainFull(args, model, device, train_graph, criterion1, num_user+num_object)
+    
+    #optimizer_train = optim.Adam(model.parameters(), lr=args.lr)
+    #train_graph = (torch.tensor(edge_index), torch.FloatTensor(feats).to(device), torch.FloatTensor(shuf_feats).to(device), loc)
+    #loss_store = []
+    #for epoch in range(1, args.epochs + 1):
+    #    loss = trainFull(args, model, device, train_graph, criterion1, num_user+num_object)
         
-        loss_store.append(loss.detach().cpu().numpy().tolist())
-        if epoch >= 10 and np.std(loss_store[epoch-10: epoch])<1e-4:
-            break
+    #    loss_store.append(loss.detach().cpu().numpy().tolist())
+    #    if epoch >= 10 and np.std(loss_store[epoch-10: epoch])<1e-4:
+    #        break
 
-        if optimizer_train is not None:
-            optimizer_train.zero_grad()
-            loss.backward()         
-            optimizer_train.step()
-    '''
+    #    if optimizer_train is not None:
+    #        optimizer_train.zero_grad()
+    #        loss.backward()         
+    #        optimizer_train.step()
+    
 
     fold_idx = 1
     every_fold_auc = []
