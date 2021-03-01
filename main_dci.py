@@ -155,7 +155,7 @@ def main():
         print('AUC results of 1-'+str(fold_idx)+' folds (Decoupled training):', every_fold_auc)
         fold_idx += 1
         
-    print('Average AUC over 10 folds (Decoupled training): ', np.mean(every_fold_auc))
+    print('Average AUC result over 10 folds (Decoupled training): ', np.mean(every_fold_auc))
 
 if __name__ == '__main__':
     main()
